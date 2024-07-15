@@ -19,17 +19,21 @@ cur = conn.cursor()
 
 cur.execute("""
     CREATE TABLE IF NOT EXISTS reviews (
-            username VARCHAR(255),
-            date date,
-            review TEXT
+            Username VARCHAR(255),
+            Date DATE,
+            Review TEXT,
+            Overall INTEGER,
+            Food INTEGER,
+            Service INTEGER,
+            Ambience INTEGER
     )
 """)
 
-data_tuples = df.itertuples(index = False, name = None)
+data_tuples = df_combined.itertuples(index = False, name = None)
 
 insert_query = """
-    INSERT INTO reviews (username, date, review)
-    VALUES (%s, %s, %s)
+    INSERT INTO reviews (Username, Date, Review, Overall, Food, Service, Ambience)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
 """
 
 cur.executemany(insert_query, data_tuples)
